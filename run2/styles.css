@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.container {
+    height: 133.33vh;
+    position: relative;
+}
+
+.title-section {
+    height: 33.33vh;
+    background: #2c3e50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.content-section {
+    height: 100vh;
+    position: fixed;
+    top: 33.33vh; /* 初始位于标题下方2/3处 */
+    width: 100%;
+    transition: top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.formula {
+    font-size: 2.5em;
+    padding: 30px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+}
