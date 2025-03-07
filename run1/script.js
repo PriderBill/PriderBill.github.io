@@ -3,31 +3,23 @@ let startY = null;
 let currentY = null;
 let isAnimating = false;
 
-// 桌面端：滚轮事件
+// 桌面端滚轮逻辑
 window.addEventListener('wheel', (e) => {
     if (isAnimating) return;
     isAnimating = true;
 
-    // 向下滚动时触发切换
     if (e.deltaY > 0 && !isScrolled) {
         isScrolled = true;
-        document.querySelector('.title-section').style.transform = 'translateY(-100%)';
-        document.querySelector('.content-section').style.top = '0';
-    } 
-    // 向上滚动时返回
-    else if (e.deltaY < 0 && isScrolled) {
+        moveToContent();
+    } else if (e.deltaY < 0 && isScrolled) {
         isScrolled = false;
-        document.querySelector('.title-section').style.transform = 'translateY(0)';
-        document.querySelector('.content-section').style.top = '100vh';
+        moveToTitle();
     }
 
-    // 重置动画状态
-    setTimeout(() => {
-        isAnimating = false;
-    }, 500);
+    setTimeout(() => isAnimating = false, 500);
 }, { passive: false });
 
-// 移动端：触摸事件
+// 移动端触摸逻辑
 window.addEventListener('touchstart', (e) => {
     if (isAnimating) return;
     startY = e.touches[0].clientY;
@@ -38,10 +30,13 @@ window.addEventListener('touchmove', (e) => {
     currentY = e.touches[0].clientY;
     const deltaY = currentY - startY;
 
-    // 实时拖动效果
-    if (deltaY < 0) {
+    if (Math.abs(deltaY) > 10) e.preventDefault();
+
+    if (!isScrolled && deltaY < 0) {
         document.querySelector('.title-section').style.transform = `translateY(${deltaY}px)`;
         document.querySelector('.content-section').style.top = `${100 + (deltaY / 33.33)}vh`;
+    } else if (isScrolled && deltaY > 0) {
+        document.querySelector('.title-section').style.transform = `translateY(${deltaY - 100}px)`;
     }
 }, { passive: false });
 
@@ -50,24 +45,33 @@ window.addEventListener('touchend', (e) => {
     isAnimating = true;
 
     const deltaY = currentY - startY;
-    const minDelta = -50;
-    const velocity = Math.abs(deltaY / 300); // 简化速度计算
+    const minDelta = 50;
 
-    // 判断最终方向
-    if (deltaY < minDelta || velocity > 0.3) {
+    if (!isScrolled && deltaY < -minDelta) {
         isScrolled = true;
-        document.querySelector('.title-section').style.transform = 'translateY(-100%)';
-        document.querySelector('.content-section').style.top = '0';
-    } else {
+        moveToContent();
+    } else if (isScrolled && deltaY > minDelta) {
         isScrolled = false;
-        document.querySelector('.title-section').style.transform = 'translateY(0)';
-        document.querySelector('.content-section').style.top = '100vh';
+        moveToTitle();
+    } else {
+        if (isScrolled) moveToContent();
+        else moveToTitle();
     }
 
-    // 重置状态
     setTimeout(() => {
         isAnimating = false;
         startY = null;
         currentY = null;
     }, 500);
 });
+
+// 统一动画函数
+function moveToContent() {
+    document.querySelector('.title-section').style.transform = 'translateY(-100%)';
+    document.querySelector('.content-section').style.top = '0';
+}
+
+function moveToTitle() {
+    document.querySelector('.title-section').style.transform = 'translateY(0)';
+    document.querySelector('.content-section').style.top = '100vh';
+}
