@@ -1,1 +1,0 @@
-# PriderBill.github.io
