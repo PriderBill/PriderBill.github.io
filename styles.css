@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden; /* 禁用默认滚动条 */
+}
+
+.container {
+    height: 133.33vh; /* 4/3 倍屏幕高度 */
+    position: relative;
+}
+
+.title-section {
+    height: 33.33vh; /* 1/3 屏幕高度 */
+    background: #2c3e50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; /* 固定标题位置 */
+    width: 100%;
+    top: 0;
+    transition: transform 0.5s ease; /* 标题移动动画（可选） */
+}
+
+.content-section {
+    height: 100vh;
+    background: #3498db;
+    color: white;
+    position: fixed;
+    top: 100vh; /* 初始隐藏在标题下方 */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.title-section, .content-section {
+    transition: all 0.5s ease;
+}
