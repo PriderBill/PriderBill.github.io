@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.container {
+    height: 133.33vh; /* 4/3 倍屏幕高度 */
+    position: relative;
+}
+
+.title-section {
+    height: 33.33vh;
+    background: #2c3e50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-section {
+    height: 100vh;
+    background: #3498db;
+    color: white;
+    position: fixed;
+    top: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
