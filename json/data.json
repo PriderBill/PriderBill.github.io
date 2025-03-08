@@ -1,0 +1,16 @@
+{
+  "sections": [
+    {
+      "id": "titleSection",
+      "type": "title",
+      "content": "数学公式中心",
+      "styles": ["text-center", "main-title"]
+    },
+    {
+      "id": "formulaSection",
+      "type": "content",
+      "content": "E = mc^2",
+      "styles": ["formula-box", "highlight"]
+    }
+  ]
+}
